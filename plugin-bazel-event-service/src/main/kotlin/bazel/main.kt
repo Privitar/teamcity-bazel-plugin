@@ -25,12 +25,14 @@ fun main(args: Array<String>) {
     val eventFile: File?
     val verbosity: Verbosity
     val bazelCommandlineFile: File?
+    val remoteCache: String?
     try {
         val bazelOptions = BazelOptions(args)
         port = bazelOptions.port
         eventFile = bazelOptions.eventFile
         verbosity = bazelOptions.verbosity
         bazelCommandlineFile = bazelOptions.bazelCommandlineFile
+        remoteCache = bazelOptions.remoteCache
     } catch (ex: Exception) {
         logger.severe(ex.message)
         BazelOptions.printHelp()
@@ -38,7 +40,7 @@ fun main(args: Array<String>) {
         return
     }
 
-    URL.setURLStreamHandlerFactory(CustomURLStreamHandlerFactory())
+    URL.setURLStreamHandlerFactory(CustomURLStreamHandlerFactory(remoteCache))
     val messageFactory = MessageFactoryImpl()
 
     if (eventFile != null && bazelCommandlineFile != null) {

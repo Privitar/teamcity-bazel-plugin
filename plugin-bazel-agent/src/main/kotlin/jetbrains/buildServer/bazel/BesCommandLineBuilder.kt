@@ -4,6 +4,7 @@ import jetbrains.buildServer.RunBuildException
 import jetbrains.buildServer.agent.FileSystemService
 import jetbrains.buildServer.agent.runner.*
 import jetbrains.buildServer.bazel.BazelConstants.PARAM_INTEGRATION_MODE
+import jetbrains.buildServer.bazel.BazelConstants.PARAM_REMOTE_CACHE
 import jetbrains.buildServer.runner.JavaRunnerConstants
 import jetbrains.buildServer.util.StringUtil
 import java.io.File
@@ -56,6 +57,12 @@ class BesCommandLineBuilder(
                     }
                     else -> Unit
                 }
+            }
+        }
+
+        _parametersService.tryGetParameter(ParameterType.Runner, PARAM_REMOTE_CACHE)?.let {
+            if (it.isNotBlank()) {
+                besArgs.add("-r=$it")
             }
         }
 

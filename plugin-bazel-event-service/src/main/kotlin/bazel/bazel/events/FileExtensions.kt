@@ -9,7 +9,8 @@ fun File.read(ctx: ServiceMessageContext): String {
         return InputStreamReader(this.createStream()).use { it.readText() }
     }
     catch (ex: Exception) {
-        ctx.logError("Canot read from ${this.name}.", ex)
+        ex.printStackTrace()
+        ctx.logError("Cannot read from ${this.name}.", ex)
         return ""
     }
 }
@@ -19,7 +20,8 @@ fun File.readLines(ctx: ServiceMessageContext): List<String> {
         return InputStreamReader(this.createStream()).use { it.readLines() }
     }
     catch (ex: Exception) {
-        ctx.logError("Canot read from ${this.name}.", ex)
+        ex.printStackTrace()
+        ctx.logError("Cannot read from ${this.name}.", ex)
         return emptyList()
     }
 }

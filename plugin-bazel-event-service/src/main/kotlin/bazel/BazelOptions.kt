@@ -26,6 +26,8 @@ class BazelOptions(args: Array<String>) {
 
     val bazelCommandlineFile: File? get() = _line.getOptionValue("c")?.let { File(it) }
 
+    val remoteCache: String? get() = _line.getOptionValue("r")
+
     companion object {
         private val options = createOptions()
         @Suppress("DEPRECATION")
@@ -37,6 +39,7 @@ class BazelOptions(args: Array<String>) {
             options.addOption("p", "port", true, "Specifies the build event service (BES) backend endpoint PORT. Optional and Auto by default.")
             options.addOption("f", "file", true, "Binary file of build event protocol.")
             options.addOption("c", "command", true, "Specifies the new line separated file containing bazel executable and its command line arguments.")
+            options.addOption("-r", "remote-cache", true, "Specifies the remote cache address if used")
             return options
         }
 

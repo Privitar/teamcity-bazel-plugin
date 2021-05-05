@@ -9,11 +9,19 @@ import java.lang.IllegalStateException
 import java.net.URL
 import java.net.URLConnection
 
-class BytestreamURLConnection(url: URL) : URLConnection(url) {
+class BytestreamURLConnection(url: URL, val remoteCache: String?) : URLConnection(url) {
     private var _channelBuilder: ManagedChannelBuilder<*>? = null
 
     override fun connect() {
-        _channelBuilder = ManagedChannelBuilder.forAddress(url.host, url.port).usePlaintext()
+        val builder = ManagedChannelBuilder.forAddress(url.host, url.port)
+        if (remoteCache != null) {
+            if (remoteCache.startsWith("grpcs://") || remoteCache.startsWith("https://")) {
+                builder.useTransportSecurity()
+            } else if (remoteCache.startsWith("grpc://") || remoteCache.startsWith("http://")) {
+                builder.usePlaintext()
+            }
+        }
+        _channelBuilder = builder
     }
 
     override fun getInputStream(): InputStream {

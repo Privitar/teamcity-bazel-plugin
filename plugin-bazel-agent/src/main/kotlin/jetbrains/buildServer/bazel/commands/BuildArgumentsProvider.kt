@@ -16,7 +16,7 @@ class BuildArgumentsProvider(
         yieldAll(_targetsArgumentsProvider.getArguments(command))
         _parametersService.tryGetBuildFeatureParameter(BazelConstants.BUILD_FEATURE_TYPE, BazelConstants.PARAM_REMOTE_CACHE)?.let {
             if (it.isNotBlank()) {
-                yield(CommandArgument(CommandArgumentType.Argument, "--remote_http_cache=${it.trim()}"))
+                yield(CommandArgument(CommandArgumentType.Argument, "--remote_cache=${it.trim()}"))
             }
         }
     }

@@ -26,14 +26,14 @@ repositories {
 
 // Feel free to delete the comment at the next line. It is just for safely
 // updating the version in our release process.
-def grpcVersion = '1.18.0' // CURRENT_GRPC_VERSION
+def grpcVersion = '1.37.0' // CURRENT_GRPC_VERSION
 
 dependencies {
     compile project(':rx')
     compile "commons-cli:commons-cli:1.4"
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     compile "com.google.api.grpc:proto-google-common-protos:1.17.0"
-    compile "io.grpc:grpc-netty:${grpcVersion}"
+    compile "io.grpc:grpc-netty-shaded:${grpcVersion}"
     compile "io.grpc:grpc-protobuf:${grpcVersion}"
     compile "io.grpc:grpc-stub:${grpcVersion}"
     compile "org.jetbrains.teamcity:common-api:${teamcityVersion}"
